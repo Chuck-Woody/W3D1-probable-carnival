@@ -3,35 +3,54 @@ class Array
     def my_each(&prc)
         i = 0 
         while i < self.length
-
-            self[i]
+           
+            prc.call(self[i]) 
+            i += 1
         end
-            self
+        return self
     end
-
 
     def my_select(&prc)
-
-        self.my_each(&prc)
+        arr = []
+        self.my_each do |num|
+            arr << num if prc.call(num)
+        end
+        arr
     end
+
+    def my_reject(&prc)
+        arr = []
+        self.my_each do |num|
+            arr << num unless prc.call(num)
+        end
+        arr
+    end 
+
+    def my_any?(&prc)
+        i = 0 
+        any = false
+        while i < self.length
+            return true if prc.call(self[i])
+            i += 1
+        end
+        any
+    end
+
+    def my_all?(&prc)
+        i = 0 
+        any = true
+        while i < self.length
+            return false unless prc.call(self[i])
+            i += 1
+        end
+        any
+    end
+
 end
 
-#my_select tests
-# a = [1, 2, 3]
-# a.my_select { |num| num > 1 } # => [2, 3]
-# a.my_select { |num| num == 4 } # => []
 
-#my_each
-return_value = [1, 2, 3].my_each do |num|
-    puts num
-   end.my_each do |num|
-    puts num
-   end
-#    # => 1
-#        2
-#        3
-#        1
-#        2
-#        3
-   
-   p return_value  # => [1, 2, 3]
+a = [1, 2, 3]
+p a.my_any? { |num| num > 1 } # => true
+p a.my_any? { |num| num == 4 } # => false
+p a.my_all? { |num| num > 1 } # => false
+p a.my_all? { |num| num < 4 } # => true
