@@ -95,12 +95,27 @@ class Array
         arr
     end
 
+
+    def my_join(s = nil)
+
+        if s == nil
+
+            self.join("")
+        else
+            self.join(s)
+
+        end
+
+    end
+
+    def my_reverse
+
+        self.reverse.map {|ele| ele }
+    end
+
 end
 
 
 
-a = [ "a", "b", "c", "d" ]
-p a.my_rotate         #=> ["b", "c", "d", "a"]
-p a.my_rotate(2)      #=> ["c", "d", "a", "b"]
-p a.my_rotate(-3)     #=> ["b", "c", "d", "a"]
-p a.my_rotate(15)     #=> ["d", "a", "b", "c"]
+
+
